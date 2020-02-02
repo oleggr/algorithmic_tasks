@@ -1,5 +1,5 @@
 # internship_preparation
-Tasks for preparayion to yandex internship
+Tasks for preparation to yandex internship
 
 ---
 ### Content
