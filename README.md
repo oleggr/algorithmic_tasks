@@ -22,9 +22,9 @@ Task itself:
 > - Dead cell with 3 living neighbors reborn.
 >
 >Write a program that will:
->— randomly generate starting cell's state;
->— be able to load starting configuration from the file (configuration method will be specified in launch process);
->— output each second board state.
+> - randomly generate starting cell's state;
+> - be able to load starting configuration from the file (configuration method will be specified in launch process);
+> - output each second board state.
 
 
 [Up](#internship_preparation)
