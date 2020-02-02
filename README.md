@@ -13,21 +13,18 @@ Tasks for preparayion to yandex internship
 
 Task itself:
 
->Дана доска размером M × N клеток. Клетка может находиться в одном из двух состояний: 1 — живая, 0 — мёртвая. Каждая клетка 
->взаимодействует с восемью соседями. Правила таковы:
-
->Живая клетка, у которой меньше двух живых соседей, погибает.
-
->Живая клетка, у которой два или три живых соседа, выживает.
-
->Живая клетка, у которой больше трёх живых соседей, погибает.
-
->Мёртвая клетка, у которой три живых соседа, возрождается.
-
->Напишите программу, которая будет:
->— случайным образом генерить стартовое состояние;
->— уметь получать его из файла (способ выбирается через параметры запуска в консоли);
->— каждую секунду выводить в консоль новое состояние доски.
+>Given a board size M × N cells. Each cell could exist in 2 states: 1 — live, 0 — dead.  
+>Each cell interacts with 8 neighbours by the following rules:
+>
+> - Live cell with less than 2 living neighbors dies.
+> - Live cell with 2 or 3 living neighbours survives.
+> - Live cell with more than 3 living neighbors dies.
+> - Dead cell with 3 living neighbors reborn.
+>
+>Write a program that will:
+>— randomly generate starting cell's state;
+>— be able to load starting configuration from the file (configuration method will be specified in launch process);
+>— output each second board state.
 
 
 [Up](#internship_preparation)
