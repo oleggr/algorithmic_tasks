@@ -40,11 +40,11 @@ class Board():
                 
                 # if cell is alive
                 if self.board[j][i]:
-                    if not live_cell_lives(self.neighbors_matrix[j][i]):
+                    if not self.live_cell_lives(self.neighbors_matrix[j][i]):
                         self.board[j][i] = 0
 
                 else:
-                    if dead_cell_reborn(self.neighbors_matrix[j][i]):
+                    if self.dead_cell_reborn(self.neighbors_matrix[j][i]):
                         self.board[j][i] = 1
 
 
