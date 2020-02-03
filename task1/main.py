@@ -1,13 +1,28 @@
 from classes import *
 
-M = 3
-N = 2
 
-board_1 = Board(M, N)
+def print_matrix(matrix):
 
-board_1.board_init()
-board_1.build_neighbours_matrix()
+    y = len(matrix)
+    x = len(matrix[0])
 
-dataset = board_1.get_data()
+    for j in range(y):
+        
+        print('|', end=' ')
+        
+        for i in range(x):
+            print(matrix[j][i], end=' ')
+        
+        print('|')
 
-print(dataset)
+
+if __name__=='__main__':
+    M = 3
+    N = 3
+
+    board_1 = Board(M, N)
+
+
+    dataset = board_1.get_data()
+
+    print_matrix(dataset.get('board'))
