@@ -14,10 +14,10 @@ Tasks for preparation to yandex internship
 Task itself:
 
 >Given a board size M × N cells. Each cell could exist in 2 states: 1 — live, 0 — dead.  
->Each cell interacts with 8 neighbours by the following rules:
+>Each cell interacts with 8 neighbors by the following rules:
 >
 > - Live cell with less than 2 living neighbors dies.
-> - Live cell with 2 or 3 living neighbours survives.
+> - Live cell with 2 or 3 living neighbors survives.
 > - Live cell with more than 3 living neighbors dies.
 > - Dead cell with 3 living neighbors reborn.
 >
