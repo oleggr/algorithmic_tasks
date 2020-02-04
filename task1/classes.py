@@ -6,26 +6,37 @@ class Board():
     Class of the board. 
     Description of the size of the board
     and properties of the cells.
-    ''' 
-
-
-    # TODO: Implement board generation by percent of live cells
-    # percent_of_live_cells = 5
+    '''
 
 
     def __init__(self, size_x, size_y):
         self.size_x = size_x
         self.size_y = size_y
-        self.board_init()
 
 
-    def board_init(self):
-        # num_of_1 = int(round(self.size_x \
-        #     * self.size_y \
-        #     * (self.percent_of_live_cells / 100)))
-
+    def init_board(self):
         random.seed(3)
         self.board = [[random.randint(0,1) for e in range(self.size_x)] for e in range(self.size_y)]
+
+
+    def init_board_from_file(self, filename):
+
+        self.board = []
+        
+        try:
+            with open(filename, 'r') as f:
+                for line in f:
+                    subarray = []
+
+                    for symbol in line:
+                        if (symbol != '\n') and (symbol != ' '):
+                            subarray.append(int(symbol))
+
+                    self.board.append(subarray)
+
+        except Exception as e:
+            print(e)
+            self.init_board()
 
 
     def live_step(self):
