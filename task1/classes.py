@@ -40,6 +40,10 @@ class Board():
 
 
     def live_step(self):
+        '''
+        Normal step of cell live.
+        Time of step regulating in external system.
+        '''
 
         y = self.size_y
         x = self.size_x
@@ -66,127 +70,59 @@ class Board():
 
         self.neighbors_matrix = [[0 for e in range(x)] for e in range(y)]
 
+        # Create adapted mattrix from board.
+        # From 
+        #     a11 a12
+        #     a21 a22
+
+        # To
+        #     a22 a21 a22 a21
+        #     a12 a11 a12 a11
+        #     a22 a21 a22 a21
+        #     a12 a11 a12 a11
+
+        tmp_board = []
+        subarray = []
+
+        subarray.append(self.board[y-1][x-1])
+        subarray.extend(self.board[y-1])
+        subarray.append(self.board[y-1][0])
+
+        tmp_board.append(subarray)
+
+        for line in self.board:
+
+            subarray = []
+
+            subarray.append(line[-1])
+            subarray.extend(line)
+            subarray.append(line[0])
+
+            tmp_board.append(subarray)
+
+        subarray = []
+
+        subarray.append(self.board[0][x-1])
+        subarray.extend(self.board[0])
+        subarray.append(self.board[0][0])
+
+        tmp_board.append(subarray)
+
         for j in range(y):
             for i in range(x):
 
+                i1 = i + 1
+                j1 = j + 1
+
                 try:
-
-                    # 1 0 0
-                    # 0 0 0
-                    # 0 0 0
-                    if (i == j == 0):
-                        self.neighbors_matrix[j][i] += self.board[y - 1][x - 1] \
-                                + self.board[j][x-1] \
-                                + self.board[j+1][x-1] \
-                                + self.board[j+1][i] \
-                                + self.board[j+1][i+1] \
-                                + self.board[j][i+1] \
-                                + self.board[y-1][i+1] \
-                                + self.board[y-1][i]
-
-                    # 0 0 0
-                    # 1 0 0
-                    # 0 0 0
-                    if (i == 0) and (0 < j < y - 1):
-                        self.neighbors_matrix[j][i] += self.board[j-1][x-1] \
-                                + self.board[j][x-1] \
-                                + self.board[j+1][x-1] \
-                                + self.board[j+1][i] \
-                                + self.board[j+1][i+1] \
-                                + self.board[j][i+1] \
-                                + self.board[j-1][i+1] \
-                                + self.board[j-1][i]
-
-                    # 0 0 0
-                    # 0 0 0
-                    # 1 0 0
-                    if (i == 0) and (j == y - 1):
-                        self.neighbors_matrix[j][i] += self.board[j - 1][x - 1] \
-                                + self.board[j][x-1] \
-                                + self.board[0][x-1] \
-                                + self.board[0][i] \
-                                + self.board[0][i+1] \
-                                + self.board[j][i+1] \
-                                + self.board[j-1][i+1] \
-                                + self.board[j-1][i]
-
-                    # 0 0 0
-                    # 0 0 0
-                    # 0 1 0
-                    if (0 < i < x - 1) and (j == y - 1):
-                        self.neighbors_matrix[j][i] += self.board[j-1][i-1] \
-                                + self.board[j][i-1] \
-                                + self.board[0][i-1] \
-                                + self.board[0][i] \
-                                + self.board[0][i+1] \
-                                + self.board[j][i+1] \
-                                + self.board[j-1][i+1] \
-                                + self.board[j-1][i]
-
-                    # 0 0 0
-                    # 0 0 0
-                    # 0 0 1
-                    if (i == x - 1) and (j == y - 1):
-                        self.neighbors_matrix[j][i] += self.board[j-1][i-1] \
-                                + self.board[j][i-1] \
-                                + self.board[0][i-1] \
-                                + self.board[0][i] \
-                                + self.board[0][0] \
-                                + self.board[j][0] \
-                                + self.board[j-1][0] \
-                                + self.board[j-1][i]
-
-                    # 0 0 0
-                    # 0 0 1
-                    # 0 0 0
-                    if (i == x - 1) and (0 < j < y - 1):
-                        self.neighbors_matrix[j][i] += self.board[j-1][i-1] \
-                                + self.board[j][i-1] \
-                                + self.board[j+1][i-1] \
-                                + self.board[j+1][i] \
-                                + self.board[j+1][0] \
-                                + self.board[j][0] \
-                                + self.board[j-1][0] \
-                                + self.board[j-1][i]
-
-                    # 0 0 1
-                    # 0 0 0
-                    # 0 0 0
-                    if (i == x - 1) and (j == 0):
-                        self.neighbors_matrix[j][i] += self.board[y-1][i-1] \
-                                + self.board[j][i-1] \
-                                + self.board[j+1][i-1] \
-                                + self.board[j+1][i] \
-                                + self.board[j+1][0] \
-                                + self.board[j][0] \
-                                + self.board[y-1][0] \
-                                + self.board[y-1][i]
-
-                    # 0 1 0
-                    # 0 0 0
-                    # 0 0 0
-                    if (0 < i < x - 1) and (j == 0):
-                        self.neighbors_matrix[j][i] += self.board[y-1][i-1] \
-                                + self.board[j][i-1] \
-                                + self.board[j+1][i-1] \
-                                + self.board[j+1][i] \
-                                + self.board[j+1][i+1] \
-                                + self.board[j][i+1] \
-                                + self.board[y-1][i+1] \
-                                + self.board[y-1][i]
-
-                    # 0 0 0
-                    # 0 1 0
-                    # 0 0 0
-                    if (0 < i < x - 1) and (0 < j < y - 1):
-                        self.neighbors_matrix[j][i] += self.board[j-1][i-1] \
-                                + self.board[j][i-1] \
-                                + self.board[j+1][i-1] \
-                                + self.board[j+1][i] \
-                                + self.board[j+1][i+1] \
-                                + self.board[j][i+1] \
-                                + self.board[j-1][i+1] \
-                                + self.board[j-1][i]
+                    self.neighbors_matrix[j][i] += tmp_board[j1-1][i1-1] \
+                            + tmp_board[j1][i1-1] \
+                            + tmp_board[j1+1][i1-1] \
+                            + tmp_board[j1+1][i1] \
+                            + tmp_board[j1+1][i1+1] \
+                            + tmp_board[j1][i1+1] \
+                            + tmp_board[j1-1][i1+1] \
+                            + tmp_board[j1-1][i1]
 
                 except Exception as e:
                     print(e)
