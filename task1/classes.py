@@ -6,17 +6,18 @@ class Board():
     Class of the board. 
     Description of the size of the board
     and properties of the cells.
-    '''
+    '''     
 
 
-    def __init__(self, size_x, size_y):
+    def init_board(self, size_x, size_y):
+
         self.size_x = size_x
         self.size_y = size_y
 
-
-    def init_board(self):
         random.seed(3)
         self.board = [[random.randint(0,1) for e in range(self.size_x)] for e in range(self.size_y)]
+
+        self.build_neighbors_matrix()
 
 
     def init_board_from_file(self, filename):
@@ -37,6 +38,8 @@ class Board():
         except Exception as e:
             print(e)
             self.init_board()
+
+        self.build_neighbors_matrix()
 
 
     def live_step(self):
