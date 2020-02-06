@@ -19,6 +19,7 @@ __email__ = 'oleg.gr@outlook.com'
 def print_matrix(matrix):
     '''
     Print func for matrix
+
     :param matrix: list - matrix to print
     '''
 
@@ -65,15 +66,12 @@ if __name__=='__main__':
         input()
         raise SystemExit
 
-    # main cycle
+    # Main cycle
     while True:
-
-        # Get data from board
-        dataset = board_1.get_data()
 
         # Show data
         os.system('cls')
-        print_matrix(dataset.get('board'))
+        print_matrix(board_1.get_board())
         print('\nstep count: {}'.format(step_counter))
 
         # Make a step of the system

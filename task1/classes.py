@@ -9,18 +9,35 @@ class Board():
     '''     
 
 
+    _random_seed = 3
+
+
     def init_board(self, size_x, size_y):
+        '''
+        Random board generation.
+
+        :param size_x: int - number of columns in matrix
+        :param size_y: int - number of lines in matrix
+        '''
 
         self.size_x = size_x
         self.size_y = size_y
 
-        random.seed(3)
+        random.seed(_random_seed)
         self.board = [[random.randint(0,1) for e in range(self.size_x)] for e in range(self.size_y)]
 
         self.build_neighbors_matrix()
 
 
     def init_board_from_file(self, filename):
+        '''
+        Board from file configuration.
+
+        :param filename: str - name of file with configuration
+        '''
+
+        x = 0
+        n = 0
 
         self.board = []
         
@@ -29,15 +46,23 @@ class Board():
                 for line in f:
                     subarray = []
 
+                    # Count num of elements in line
+                    if x == 0:
+                        x = line.count('0') + line.count('1') 
+
                     for symbol in line:
                         if (symbol != '\n') and (symbol != ' '):
                             subarray.append(int(symbol))
+                            n += 1
 
                     self.board.append(subarray)
 
+            self.size_x = x
+            self.size_y = int(n / x)
+
         except Exception as e:
             print(e)
-            self.init_board()
+            raise SystemExit
 
         self.build_neighbors_matrix()
 
@@ -48,13 +73,10 @@ class Board():
         Time of step regulating in external system.
         '''
 
-        y = self.size_y
-        x = self.size_x
-
         self.build_neighbors_matrix()
 
-        for j in range(y):
-            for i in range(x):
+        for j in range(self.size_y):
+            for i in range(self.size_x):
                 
                 # if cell is alive
                 if self.board[j][i]:
@@ -67,6 +89,12 @@ class Board():
 
 
     def build_neighbors_matrix(self):
+        '''
+        Build matrix of neighbors for the board.
+        Size of this matrix is the same as the board size.
+        Each cell have value of number of neighbors in 
+        the same cell number on the board.
+        '''
 
         y = self.size_y
         x = self.size_x
@@ -131,32 +159,41 @@ class Board():
                     print(e)
 
 
-    def get_data(self):
-
-        dataset = {
-        'board': self.board,
-        'neighbors_matrix': self.neighbors_matrix,
-        'size_x': self.size_x,
-        'size_y': self.size_y
-        }
-
-        return dataset
+    def get_board(self):
+        return self.board
 
 
-    # Rules to check
     def live_cell_lives(self, num_of_neighbors):
+        '''
+        Check if live cell is in good condition 
+        and will live next step.
+
+        :param num_of_neighbors: int - number of cell's neighbors
+        '''
+
         if (num_of_neighbors < 2) or (num_of_neighbors > 3):
             return False
         return True
 
 
     def dead_cell_reborn(self, num_of_neighbors):
+        '''
+        Check if dead cell is in good condition 
+        to reborn.
+
+        :param num_of_neighbors: int - number of cell's neighbors
+        '''
+
         if (num_of_neighbors == 3):
             return True
         return False
 
 
     def __repr__(self):
+        '''
+        Representation rules for Board class
+        '''
+
         self_oject = {
                 'size_x': self.size_x,
                 'size_y': self.size_y
